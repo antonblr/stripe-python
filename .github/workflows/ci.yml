@@ -88,7 +88,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
-          cache-dependency-path: "setup.py"
+          cache-dependency-path: |
+              setup.py
+              .tox
 
       - name: Upgrade pip and virtualenv to latest
         run: pip install --upgrade pip virtualenv
@@ -100,10 +102,11 @@ jobs:
 
       - name: Calculate and publish coverage
         run: make coveralls
-        if: env.COVERALLS_REPO_TOKEN && matrix.python-version == '3.10'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        if: matrix.python-version == '3.10'
+  #        if: env.COVERALLS_REPO_TOKEN && matrix.python-version == '3.10'
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
   publish:
     name: Publish
