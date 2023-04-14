@@ -18,8 +18,8 @@ test-nomock: venv
 	@${VENV_NAME}/bin/tox -p auto -- --nomock $(TOX_ARGS)
 
 ci-test: venv
-	${VENV_NAME}/bin/python -m pip install -U tox-gh-actions
-	@${VENV_NAME}/bin/tox -p auto --parallel-no-spinner $(TOX_ARGS)
+	#${VENV_NAME}/bin/python -m pip install -U tox-gh-actions
+	@${VENV_NAME}/bin/tox $(TOX_ARGS)
 
 coveralls: venv
 	${VENV_NAME}/bin/python -m pip install -U coveralls
