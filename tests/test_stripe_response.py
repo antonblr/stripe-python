@@ -24,8 +24,16 @@ class ResponseTestBase(object):
     def test_idempotency_key(self, mock_response, mock_headers):
         assert mock_response.idempotency_key == mock_headers["idempotency-key"]
 
+    def test_idempotency_key_missing(self, mock_response, mock_headers):
+        del mock_response.headers["idempotency-key"]
+        assert mock_response.idempotency_key is None
+
     def test_request_id(self, mock_response, mock_headers):
         assert mock_response.request_id == mock_headers["request-id"]
+
+    def test_request_id_missing(self, mock_response, mock_headers):
+        del mock_response.headers["request-id"]
+        assert mock_response.request_id is None
 
     def test_code(self, mock_response, mock_headers):
         assert mock_response.code == 200
